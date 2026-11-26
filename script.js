@@ -91,3 +91,41 @@
         contactForm.classList.remove('hidden');
       });
     });
+
+    function abrirModalEquipo() {
+  const modal = document.getElementById('modalEquipo');
+  const contenido = document.getElementById('contenidoModalEquipo');
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  document.body.style.overflow = 'hidden';
+
+  // Activa la animación en el siguiente frame para que se vea el desplazamiento
+  requestAnimationFrame(() => {
+    modal.classList.remove('opacity-0');
+    contenido.classList.remove('translate-y-16', 'scale-95', 'opacity-0');
+    contenido.classList.add('translate-y-0', 'scale-100', 'opacity-100');
+  });
+}
+
+function cerrarModalEquipo() {
+  const modal = document.getElementById('modalEquipo');
+  const contenido = document.getElementById('contenidoModalEquipo');
+
+  // Inicia el desplazamiento hacia abajo y desvanecimiento
+  modal.classList.add('opacity-0');
+  contenido.classList.remove('translate-y-0', 'scale-100', 'opacity-100');
+  contenido.classList.add('translate-y-16', 'scale-95', 'opacity-0');
+
+  // Espera los 300ms de la transición antes de ocultarlo por completo
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }, 300);
+}
+
+// Cerrar con la tecla Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') cerrarModalEquipo();
+});
